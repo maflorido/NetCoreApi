@@ -1,8 +1,11 @@
 # Net core 6 Api
 
+NetCore Agenda web api. 
+
 ## Required
 
 - Docker Environment configured in your Machine.
+- Setup your Docker Desktop to use the Linux Containers. Right click in the Docker Desktop icon, on your TaskBar.
 
 # How to Run
 
@@ -10,4 +13,4 @@ Navigate to the folder [YOUR_PROJECT_PATH]\NetCoreApi\source\Agenda using your c
 
 ## Accessing the Api
 
-Navigate to the url http://localhost:8090/swagger/index.html using your browser. There you will see the apis to use via Swagger UI.
+Navigate to the url http://localhost:8090/swagger/index.html using your browser. There you will see the apis to use via Swagger UI. Then, click on the Switch to the Linux Containers option.
