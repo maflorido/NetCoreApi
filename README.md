@@ -1,5 +1,7 @@
 # Net core 6 Api
 
+NetCore Agenda web api. 
+
 ## Required
 
 - Docker Environment configured in your Machine.
