@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  agenda.api:
+    image: ${DOCKER_REGISTRY-}agendaapi
+    build:
+      context: .
+      dockerfile: Agenda.Api/Dockerfile
+    depends_on:
+      - sqlserver
+    ports:
+      - "8090:80"
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    hostname: 'sqlserver'
+    environment:
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: "SenhaSegura01!"
+    volumes:
+      - c:\dados\volumes\mssql:/var/opt/mssql3
+    ports:
+      - '11433:1433'
+    expose:
+      - 1433
+
