@@ -1,6 +1,4 @@
 ﻿using Agenda.Domain.Exceptions;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Agenda.Domain.Entities
 {
@@ -39,9 +37,9 @@ namespace Agenda.Domain.Entities
 
         private void Validate(string user, DateTime date, string subject)
         {
-            if (string.IsNullOrEmpty(user)) { throw new Exceptions.ValidationException("User is required."); }
-            if (date == DateTime.MinValue) { throw new Exceptions.ValidationException("Date is required."); }
-            if (subject == null) { throw new Exceptions.ValidationException("Subject is required."); }
+            if (string.IsNullOrEmpty(user)) { throw new ValidationException("User is required."); }
+            if (date == DateTime.MinValue) { throw new ValidationException("Date is required."); }
+            if (subject == null) { throw new ValidationException("Subject is required."); }
         }
 
         
