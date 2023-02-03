@@ -8,6 +8,7 @@ namespace Agenda.Data
         {
         }
 
-        public DbSet<Domain.Entities.Task> Tasks { get; set; }        
+        public DbSet<Domain.Entities.Task> Tasks { get; set; }
+        public DbSet<Domain.Entities.User> Users{ get; set; }
     }
 }

@@ -14,37 +14,46 @@ namespace Agenda.Domain.Services
 
     public class TaskService : ITaskService
     {
-        private readonly ITaskRepository _repository;
+        private readonly ITaskRepository _taskRepository;
+        private readonly IUserRepository _userRepository;
 
-        public TaskService(ITaskRepository repository) 
+        public TaskService(ITaskRepository taskRepository, IUserRepository userRepository) 
         {
-            _repository = repository;
+            _taskRepository = taskRepository;
+            _userRepository = userRepository;
         }
 
         public async Task Delete(int id)
         {
-            await _repository.Delete(id);
+            await _taskRepository.Delete(id);
         }
 
         public async Task<IEnumerable<Entities.Task>> Get()
         {
-            return await _repository.List();
+            return await _taskRepository.List();
         }
 
         public async Task New(PostTaskRequest request)
         {
-            var task = new Entities.Task(request.User, request.Date, request.Subject, request.Description);
-            await _repository.New(task);
+            var user = await _userRepository.Find(request.User);
+            if (user == null) throw new NotfoundException("User was not found.");
+            
+            user.ScheduleEvent(request.StartDate, request.EndDate, request.Subject, request.Description);
+            await _userRepository.Save(user);
         }
 
         public async Task Save(PutTaskRequest request)
         {
-            var task = await _repository.Find(request.Id);
+            var task = await _taskRepository.Find(request.Id);
             if (task == null) throw new NotfoundException("Task record was not found.");
 
-            task.Update(request.User, request.Date, request.Subject, request.Description);
+            var user = await _userRepository.Find(request.User);
+            if (user == null) throw new NotfoundException("User was not found.");
 
-            await _repository.Save(task);
+            user.ValidateTaskTime(request.StartDate, request.EndDate);
+            task.Update(request.StartDate, request.EndDate, request.Subject, request.Description);
+            
+            await _taskRepository.Save(task);
         }
     }
 }

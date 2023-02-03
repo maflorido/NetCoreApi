@@ -17,6 +17,7 @@ builder.Services.AddDbContext<AgendaContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AgendaDb"));
 });
 builder.Services.AddTransient<ITaskRepository, TaskRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
