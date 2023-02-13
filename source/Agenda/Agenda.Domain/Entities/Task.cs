@@ -9,18 +9,18 @@ namespace Agenda.Domain.Entities
     {
         [Key]
         public int Id { get; private set; }
-        public int User { get; private set; }
+        public virtual User User { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
         public string Subject { get; private set; }
-        public string Description { get; private set; }
+        public string Description { get; private set; }        
 
         //required for Entity Framework
         private Task() { }
 
-        public Task(int user, DateTime startDate, DateTime endDate, string subject, string description)
+        public Task(User user, DateTime startDate, DateTime endDate, string subject, string description)
         {
-            Validate(user, startDate, endDate, subject);
+            Validate(startDate, endDate, subject);
 
             User = user;
             StartDate = startDate;
@@ -39,7 +39,7 @@ namespace Agenda.Domain.Entities
             Description = description;
         }
 
-        private void Validate(int user, DateTime startDate, DateTime endDate, string subject)
+        private void Validate(DateTime startDate, DateTime endDate, string subject)
         {
             if (startDate == DateTime.MinValue) { throw new Exceptions.ValidationException("Start Date is required."); }
             if (endDate == DateTime.MinValue) { throw new Exceptions.ValidationException("End Date is required."); }

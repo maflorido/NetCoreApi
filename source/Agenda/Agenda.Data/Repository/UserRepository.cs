@@ -8,7 +8,7 @@ namespace Agenda.Data.Repository
     {
         private readonly AgendaContext _context;
 
-        public UserRepository(AgendaContext context) 
+        public UserRepository(AgendaContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace Agenda.Data.Repository
 
         public async Task<Domain.Entities.User> Find(int id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users.Include(i => i.Tasks).FirstAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Domain.Entities.User>> List()

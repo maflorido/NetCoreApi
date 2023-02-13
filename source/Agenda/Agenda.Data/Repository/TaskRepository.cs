@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Agenda.Data.Repository
 {
-    public class TaskRepository: ITaskRepository
+    public class TaskRepository : ITaskRepository
     {
         private readonly AgendaContext _context;
 
-        public TaskRepository(AgendaContext context) 
+        public TaskRepository(AgendaContext context)
         {
             _context = context;
         }
@@ -23,12 +23,12 @@ namespace Agenda.Data.Repository
 
         public async Task<Domain.Entities.Task> Find(int id)
         {
-            return await _context.Tasks.FindAsync(id);
+            return await _context.Tasks.Include(x => x.User).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Domain.Entities.Task>> List()
         {
-            return await _context.Tasks.ToListAsync();
+            return await _context.Tasks.Include(x => x.User).ToListAsync();
         }
 
         public async Task New(Domain.Entities.Task task)

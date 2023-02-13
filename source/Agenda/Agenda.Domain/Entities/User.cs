@@ -15,9 +15,8 @@ namespace Agenda.Domain.Entities
 
         private User() { }
 
-        public User(int id, string name, string login, string password)
+        public User(string name, string login, string password)
         {
-            Id = id;
             Name = name;
             Login = login;
             Password = password;
@@ -34,7 +33,7 @@ namespace Agenda.Domain.Entities
         {
             ValidateTaskTime(start, end);
 
-            Tasks.Add(new Task(Id, start, end, subject, description));
+            Tasks.Add(new Task(this, start, end, subject, description));
         }
 
         public void ValidateTaskTime(DateTime start, DateTime end)

@@ -12,7 +12,7 @@
         public TaskResult(Entities.Task dbRecord)
         {
             Id = dbRecord.Id;
-            User = dbRecord.User;
+            User = dbRecord.User?.Id ?? default;
             StartDate = dbRecord.StartDate.ToShortTimeString();
             EndDate = dbRecord.StartDate.ToShortTimeString();
             Subject = dbRecord.Subject;

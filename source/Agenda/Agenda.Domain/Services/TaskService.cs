@@ -47,10 +47,7 @@ namespace Agenda.Domain.Services
             var task = await _taskRepository.Find(request.Id);
             if (task == null) throw new NotfoundException("Task record was not found.");
 
-            var user = await _userRepository.Find(request.User);
-            if (user == null) throw new NotfoundException("User was not found.");
-
-            user.ValidateTaskTime(request.StartDate, request.EndDate);
+            task.User.ValidateTaskTime(request.StartDate, request.EndDate);
             task.Update(request.StartDate, request.EndDate, request.Subject, request.Description);
             
             await _taskRepository.Save(task);

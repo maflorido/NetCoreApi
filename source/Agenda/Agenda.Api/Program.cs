@@ -12,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ITaskService, TaskService>();
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddDbContext<AgendaContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("AgendaDb"));
